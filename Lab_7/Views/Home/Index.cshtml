@@ -1,0 +1,48 @@
+﻿@using Lab_7.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="text-center">
+    <h1 class="display-4">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <text>Welcome to the site, @UserManager.GetUserName(User)</text>
+
+            @if (User.IsInRole("Manager"))
+            {
+               
+                <h2>Manager Dashboard</h2>
+                <p>Welcome, Manager! Here is your admin panel where you can manage users and settings.</p>
+                <ul>
+                    <li><a href="#">Manage Users</a></li>
+                    <li><a href="#">View Reports</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            }
+            else if (User.IsInRole("Member"))
+            {
+         
+                <h2>Member Area</h2>
+                <p>Welcome, Member! Here you can access your personal information and view your activities.</p>
+                <ul>
+                    <li><a href="#">View Profile</a></li>
+                    <li><a href="#">Your Orders</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            }
+            else
+            {
+              
+                <h2>General User Area</h2>
+                <p>You are logged in, but you do not have a specific role. Please contact support if this is a mistake.</p>
+            }
+        }
+        else
+        {
+         
+            <h2>Welcome, Guest!</h2>
+            <p>Please <a href="/Identity/Account/Login">log in</a> to access your account.</p>
+        }
+    </h1>
+</div
